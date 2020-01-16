@@ -1,0 +1,91 @@
+
+<body>
+	<div class="card" ng-show="showSearch">
+	<div class="card-header">
+		<div class="form col-sm-12">
+			<div class="form-check-inline">
+				<label class="form-check-label"> <input type="radio"
+					class="form-check-input"  name="generic" ng-model="radioURL"
+					value="./rest/v1/generic?name=">Generic Name
+				</label>
+			</div>
+			<div class="form-check-inline">
+				<label class="form-check-label"> <input type="radio"
+					class="form-check-input" name="brand" ng-model="radioURL"
+					value="./rest/v1/brand?brandName=">Brand Name
+				</label>
+			</div>
+			<div class="form-check-inline">
+				<label class="form-check-label"> <input type="radio"
+					class="form-check-input"  name="drugbank" ng-model="radioURL"
+					value="./rest/v1/drugbankId?primary_key=">Drugbank ID
+				</label>
+			</div>
+			<div class="form-check-inline">
+				<label class="form-check-label"> <input type="radio"
+					class="form-check-input"  name="unii" ng-model="radioURL"
+					value="./rest/v1/Unii?id=">Unii
+				</label>
+			</div>	
+				<div class="input-group mb-3">
+			<input type="text" class="form-control text-capitalize" ng-model="search"
+				placeholder="'e.g.Acetaminophen,Tylenol,DB00316, or 362O9ITL9D'">
+				<div class="input-group-append">			
+				<button type="submit" class="btn btn-success"
+					ng-click="searchDrugs()" ng-disabled="!radioURL" id="submitButton">Search</button>
+					</div>
+			</div>
+			</div>
+			<div class="col-2">
+				<input type="text" class="form-control text-capitalize" placeholder="filter..."
+					ng-model="filtervalue">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12 text-center">
+			<div class="accordion" id="drugAccordion">
+				<div class="card" ng-repeat="drug in drugs | filter : {brandName : filtervalue} ">
+				 	<div class="card-header" ng-switch="drug">
+				 		<div ng-switch-default>
+				 			<h4 class="mb-0">
+				 			<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{$index}}" >{{drug.brandName}}
+				 			</button></h4>
+				 		</div>
+				 	</div>
+				 		<div id="collapse{{$index}}" class="collapse show"  data-parent="#drugAccordion">
+				 		<div class="card-body">
+				 			<p>
+						<b>Unii:</b> {{drug.unii}}
+					</p>
+					<p>
+						<b>DrugBank ID:</b> {{drug.primary_key}}
+					</p>
+					<p>
+						<b>Brand Name:</b> {{drug.brandName}}
+					<p>
+					<p>
+						<b>Generic Name:</b> {{drug.name}}
+					</p>
+					<p>
+						<b>Description:</b> {{drug.description}}
+					</p>
+					<p>
+						<b>Indication:</b> {{drug.indication}}
+					</p>
+					<p>
+						<b>Mechanism of Action:</b> {{drug.mechanism_of_action}}
+					</p>
+					<p>
+						<b>FDA Label:</b> <a href={{drug.fda_label}} target="_blank">PDF</a>
+					</p>
+					<p>
+						<b>Interactions count:</b> {{drug.drug_interactions_count}}
+				 		</div>
+				 		</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>

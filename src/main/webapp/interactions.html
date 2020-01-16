@@ -1,0 +1,52 @@
+
+<body>
+	<div class="card" ng-show=showSearch>
+		<div class="card-header">
+			<div class="form col-sm-12">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control text-capitalize" ng-model="search"
+						placeholder="'e.g.Acetaminophen, or Acetaminophen and/& Warfarin'">
+					<div class="input-group-append">
+						<div class="btn-group">
+							<button type="submit" class="btn btn-success"
+								ng-click="searchDrugs()">Search All</button>
+							<button type="submit" class="btn btn-info"
+								ng-click="compareDrugs()">Compare Two</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="col-2">
+				<input type="text" class="form-control text-capitalize" placeholder="filter..."
+					ng-model="filtervalue">
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-12 text-center">
+					<div id="accordion">
+						<div class="card"
+							ng-repeat="drug in drugs | filter : {name : filtervalue}">
+							<div class="card-header" ng-switch="drug">
+								<div ng-switch-default>
+									<h4 class="mb-0">
+										<button class="btn btn-link" data-toggle="collapse"
+											data-target="#collapse{{$index}}"
+											aria-controles="collapseTwo">{{drug.name}}</button>
+									</h4>
+								</div>
+							</div>
+							<div id="collapse{{$index}}" class="collapse"
+								aria-labelledby="headingOne" data-parent="#accordion">
+								<div class="card-body">
+									<p>Description: {{drug.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</body>
