@@ -12,23 +12,23 @@ import com.aca.rest.model.DrugData;
 public class DrugDatabaseDao {
 
 	private final static String selectDrugById = "SELECT d.primary_key, d.name, dm.name, d.description, d.indication, d.unii, d.pharmacodynamics, d.mechanism_of_action, d.fda_label, d.drug_interactions_count"
-			+ " FROM drug AS d, drug_mixtures AS dm" + " WHERE d.primary_key = ?";
+			+ " FROM drugs AS d, drug_mixtures AS dm" + " WHERE d.primary_key = ?";
 
 	private final static String selectDrugByName = "SELECT d.primary_key, d.name, dm.name, d.description, d.indication, d.unii, d.pharmacodynamics, d.mechanism_of_action, d.fda_label, d.drug_interactions_count "
-			+ " FROM drug AS d, drug_mixtures AS dm" + " WHERE d.name = ? AND dm.parent_key = d.primary_key" + " ORDER BY dm.name ASC";
+			+ " FROM drugs AS d, drug_mixtures AS dm" + " WHERE d.name = ? AND dm.parent_key = d.primary_key" + " ORDER BY dm.name ASC";
 
 	private final static String selectDrugByBrandName = "SELECT d.primary_key, d.name, dm.name, d.description, d.indication, d.unii, d.pharmacodynamics, d.mechanism_of_action, d.fda_label, d.drug_interactions_count "
-			+ " FROM  drug AS d, drug_mixtures AS dm " + " WHERE dm.name like ? AND dm.parent_key = d.primary_key" + " ORDER BY dm.name ASC";
+			+ " FROM  drugs AS d, drug_mixtures AS dm " + " WHERE dm.name like ? AND dm.parent_key = d.primary_key" + " ORDER BY dm.name ASC";
 
 	private final static String selectDrugByUnii = "SELECT d.primary_key, d.name, dm.name, d.description, d.indication, d.unii, d.pharmacodynamics, d.mechanism_of_action, d.fda_label, d.drug_interactions_count "
-			+ " FROM drug AS d, drug_mixtures AS dm" + " WHERE d.unii = ?";
+			+ " FROM drugs AS d, drug_mixtures AS dm" + " WHERE d.unii = ?";
 	
-	private final static String getDrugInteraction = "SELECT ddi.drugbankId, ddi.name, ddi.description, ddi.parent_key, d.name" + " FROM drug_drug_interactions AS ddi " + " INNER JOIN drug AS d ON ddi.parent_key = d.primary_key " +
+	private final static String getDrugInteraction = "SELECT ddi.drugbankId, ddi.name, ddi.description, ddi.parent_key, d.name" + " FROM drug_drug_interactions AS ddi " + " INNER JOIN drugs AS d ON ddi.parent_key = d.primary_key " +
 			" WHERE ddi.name = ?" + "ORDER BY d.name ASC";
 
 	private final static String CompareInteraction = "SELECT ddi.drugbankId, ddi.name, ddi.description, ddi.parent_key, d.name " +
 			" FROM drug_drug_interactions AS ddi" +
-			" INNER JOIN drug AS d" +
+			" INNER JOIN drugs AS d" +
 			" ON ddi.drugbankId = d.primary_key" +
 			" OR ddi.parent_key = d.primary_key" +
 			" WHERE ddi.name = ?" +
